@@ -4,6 +4,8 @@ import java.util.ArrayList;
 public class CliMain {
   private static QuoteList quoteList;
 
+
+  //private Random randomGen;
   public static void main(String[] args) {
     // Initiallize the quote list
     QuoteSaxParser qParser = new QuoteSaxParser ("quotes.xml");
@@ -39,28 +41,30 @@ public class CliMain {
     }
   }
 
-  public static String join(String[] strings, int ignore_index) {
-    // tmp storage ignoring the string at index `ignore_index`
-    ArrayList<String> strList = new ArrayList<String>();
+  public static getIndex(int index) {
+    Quote q = this.qoutelist.get(i);
+    System.out.println(q);
+  }
 
-    // add strings to list except the one index
-    for(int i=0; i<strings.length; i++) {
-      if(i != ignore_index) strList.add(strings[i]);
+  public static getSearch(String terms, int mode) {
+
+
+    QuoteList returnQuote = this.qoutelist.search(terms,mode);
+    for(int i=0; i<returnQuote.getSize(); i++)
+    {
+      System.out.println(returnQuote.get(i));
+
     }
-
-    // return the strings joined by a space
-    return String.join(" ", strList);
   }
 
-  public static void getIndex(int index) {
-    // TODO - return quote with index `index`
-  }
+  public static getRandom() {
 
-  public static void getSearch(String terms, int mode) {
-    // TODO - return quotes matching search
-  }
+    Quote q = this.qoutelistqgetRandomQuote();
 
-  public static void getRandom() {
-    // TODO - return a random quote
+
+//    Random r = new Random();
+//    int rando = r.nextInt(this.qoutelist.size()-1);
+//    Quote q = this.qoutelist.get(rand);
+//    System.out.println(q);
   }
 }
