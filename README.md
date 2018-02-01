@@ -6,8 +6,9 @@
 
 # Usage
 `java CliMain` get random quote
-`java CliMain -i|--index=<quote number>` get quote with index
-`java CliMain [<search terms>] [--author|-a] [--quote|-q] [--both|-b]` search
+`java CliMain -i|--index <quote number>` get quote with index
+`java CliMain [<search terms>] [-a|--author|-q|--quote|-b|--both]`
+search(both assumed)
 
 # Documentation of Changes
 1. removed the `quoteserve.java` - no methods from this file were used
