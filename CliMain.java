@@ -12,12 +12,6 @@ public class CliMain {
     int type = 0;
     int mode = QuoteList.SearchBothVal;
 
-    // If no args were given, return a random quote
-    if (args.length == 0) {
-      getRandom();
-      System.exit(0);
-    }
-
     String arg;
     // Parse command line options
     for (int i=0; i<args.length; ++i) {
@@ -25,12 +19,12 @@ public class CliMain {
       if(arg.startsWith("-f") || arg.startsWith("--file")) {
         ignore.add(i);
         ignore.add(i+1);
-        quotefile = args[i++];
+        quotefile = args[++i];
       }
       else if(arg.startsWith("-i") || arg.startsWith("--index")) {
         ignore.add(i);
         ignore.add(i+1);
-        mode = Integer.valueOf(args[i+1]);
+        mode = Integer.valueOf(args[++i]);
         type = 1;
       }
       else if(arg.startsWith("-a") || arg.startsWith("--author")) {
