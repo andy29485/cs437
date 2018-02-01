@@ -4,12 +4,11 @@ import java.util.ArrayList;
 public class CliMain {
   private static QuoteList quoteList;
 
-
   //private Random randomGen;
   public static void main(String[] args) {
     // Initiallize the quote list
     QuoteSaxParser qParser = new QuoteSaxParser ("quotes.xml");
-    quoteList = qParser.getQuoteList();
+    CliMain.quoteList = qParser.getQuoteList();
 
     // If no args were given, return a random quote
     if (args.length == 0) {
@@ -41,30 +40,43 @@ public class CliMain {
     }
   }
 
-  public static getIndex(int index) {
-    Quote q = this.qoutelist.get(i);
+   public static String join(String[] strings, int ignore_index) {
+   // tmp storage ignoring the string at index `ignore_index`
+   ArrayList<String> strList = new ArrayList<String>();
+   // add strings to list except the one index
+   for(int i=0; i<strings.length; i++) {
+     if(i != ignore_index) strList.add(strings[i]);
+   }
+   // return the strings joined by a space
+   return String.join(" ", strList);
+ }
+
+
+  public static void getIndex(int index) {
+    Quote q = CliMain.quoteList.getQuote(index);
     System.out.println(q);
   }
 
-  public static getSearch(String terms, int mode) {
+  public static void getSearch(String terms, int mode) {
 
 
-    QuoteList returnQuote = this.qoutelist.search(terms,mode);
+    QuoteList returnQuote = CliMain.quoteList.search(terms,mode);
     for(int i=0; i<returnQuote.getSize(); i++)
     {
-      System.out.println(returnQuote.get(i));
+      System.out.println(returnQuote.getQuote(i));
 
     }
   }
 
-  public static getRandom() {
+  public static void getRandom() {
 
-    Quote q = this.qoutelistqgetRandomQuote();
+    Quote q = CliMain.quoteList.getRandomQuote();
+    System.out.println(q);
 
 
 //    Random r = new Random();
-//    int rando = r.nextInt(this.qoutelist.size()-1);
-//    Quote q = this.qoutelist.get(rand);
+//    int rando = r.nextInt(CliMain.quoteList.size()-1);
+//    Quote q = CliMain.quoteList.get(rand);
 //    System.out.println(q);
   }
 }
