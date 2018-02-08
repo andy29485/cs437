@@ -3,6 +3,7 @@ package quotes;
 import java.util.ArrayList;
 import java.util.Random;
 import java.io.*;
+import javax.xml.stream.*;
 
 /**
  * List of all the quotes.
@@ -101,16 +102,30 @@ public class QuoteList {
   }
 
   public String toXml() {
-    StringBuilder sb = new StringBuilder();
+    XMLOutputFactory xof = XMLOutputFactory.newFactory();
 
-    sb.append("<?xml version=\"1.0\"?>\n");
-    sb.append("<").append(QuoteListElem).append(">\n");
-    for(Quote quote : this.quoteArray) {
-      sb.append(quote.toXml());
+    try {
+      StringWriter sw = new StringWriter();
+      XMLStreamWriter xsw = xof.createXMLStreamWriter(sw);
+
+      xsw.writeStartDocument();
+      xsw.writeCharacters("\n");
+      xsw.writeStartElement(QuoteListElem);
+
+      for(Quote quote : this.quoteArray) {
+        xsw.writeCharacters("\n  ");
+        quote.writeXml(xsw);
+      }
+
+      xsw.writeCharacters("\n");
+      xsw.writeEndElement();
+      xsw.writeEndDocument();
+
+      return sw.toString();
     }
-    sb.append("</").append(QuoteListElem).append(">\n");
-
-    return sb.toString();
+    catch (XMLStreamException e) { // error creating XML
+      return "";
+    }
   }
 
   public void load(String filename) {

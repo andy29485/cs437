@@ -1,5 +1,7 @@
 package quotes;
 
+import javax.xml.stream.*;
+
 /**
  * Quote data object.
  * @author Mongkoldech Rajapakdee & Jeff offutt
@@ -42,22 +44,24 @@ public class Quote {
     return quoteText + "\n  --" + author;
   }
 
-  public String toXml() {
-    StringBuilder sb = new StringBuilder();
+  public void writeXml(XMLStreamWriter xsw) throws XMLStreamException {
+    xsw.writeStartElement(QuoteList.QuoteElem);
 
-    sb.append("  <").append(QuoteList.QuoteElem).append(">\n");
-    sb.append("    <").append(QuoteList.QuoteTextElem).append(">")
-                      .append(this.quoteText)
-                      .append("</").append(QuoteList.QuoteTextElem)
-                      .append(">\n");
 
-    sb.append("    <").append(QuoteList.QuoteAuthorElem).append(">")
-                      .append(this.author)
-                      .append("</").append(QuoteList.QuoteAuthorElem)
-                      .append(">\n");
-    sb.append("  </").append(QuoteList.QuoteElem).append(">\n");
+    xsw.writeCharacters("\n    ");
+    xsw.writeStartElement(QuoteList.QuoteTextElem);
+    xsw.writeCharacters(this.quoteText);
+    xsw.writeEndElement();
 
-    return sb.toString();
+
+    xsw.writeCharacters("\n    ");
+    xsw.writeStartElement(QuoteList.QuoteAuthorElem);
+    xsw.writeCharacters(this.author);
+    xsw.writeEndElement();
+
+
+    xsw.writeCharacters("\n  ");
+    xsw.writeEndElement();
   }
 
   public String toInternalFormat() { // Not JSON nor XML
