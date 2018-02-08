@@ -15,18 +15,19 @@ public class QuoteSaxHandler extends DefaultHandler {
   private Quote     quoteTmp       = null; // temporary Quote
   private String    currentElement = null; // current element name
 
-  // Node names in XML file
-  private final String QuoteListElem   = "quote-list";
-  private final String QuoteElem       = "quote";
-  private final String QuoteAuthorElem = "author";
-  private final String QuoteTextElem   = "quote-text";
-
   public QuoteSaxHandler() {
+    this(null);
+  }
+
+  public QuoteSaxHandler(QuoteList quoteList) {
     super();
+    if (quoteList != null) {
+      this.quoteList = quoteList;
+    }
   }
 
   public QuoteList getQuoteList() {
-    return quoteList;
+    return this.quoteList;
   }
 
   @Override
@@ -42,24 +43,24 @@ public class QuoteSaxHandler extends DefaultHandler {
   @Override
   public void startElement (String uri, String name,
                             String qName, Attributes atts) {
-    if (qName.equalsIgnoreCase (QuoteListElem)) {
-      currentElement = QuoteListElem;
+    if (qName.equalsIgnoreCase (QuoteList.QuoteListElem)) {
+      currentElement = QuoteList.QuoteListElem;
     }
-    else if (qName.equalsIgnoreCase(QuoteElem)) {
-      currentElement = QuoteElem;
+    else if (qName.equalsIgnoreCase(QuoteList.QuoteElem)) {
+      currentElement = QuoteList.QuoteElem;
       quoteTmp = new Quote();
     }
-    else if (qName.equalsIgnoreCase (QuoteAuthorElem)) {
-      currentElement = QuoteAuthorElem;
+    else if (qName.equalsIgnoreCase (QuoteList.QuoteAuthorElem)) {
+      currentElement = QuoteList.QuoteAuthorElem;
     }
-    else if (qName.equalsIgnoreCase (QuoteTextElem)) {
-      currentElement = QuoteTextElem;
+    else if (qName.equalsIgnoreCase (QuoteList.QuoteTextElem)) {
+      currentElement = QuoteList.QuoteTextElem;
     }
   }
 
   @Override
   public void endElement (String uri, String name, String qName) {
-    if (qName.equalsIgnoreCase (QuoteElem)) {
+    if (qName.equalsIgnoreCase (QuoteList.QuoteElem)) {
       quoteList.addQuote (quoteTmp);
       quoteTmp = null;
    }
@@ -69,10 +70,10 @@ public class QuoteSaxHandler extends DefaultHandler {
   public void characters (char ch[], int start, int length) {
     String value = new String (ch, start, length);
     if (!value.trim().equals("")) {
-      if (currentElement.equalsIgnoreCase (QuoteTextElem)) {
+      if (currentElement.equalsIgnoreCase (QuoteList.QuoteTextElem)) {
         quoteTmp.addQuoteText (value);
       }
-      else if (currentElement.equalsIgnoreCase (QuoteAuthorElem)) {
+      else if (currentElement.equalsIgnoreCase (QuoteList.QuoteAuthorElem)) {
         quoteTmp.setAuthor (value);
       }
     }

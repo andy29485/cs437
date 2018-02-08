@@ -13,10 +13,14 @@ public class QuoteSaxParser {
   private QuoteSaxHandler handler;
 
   public QuoteSaxParser (String fileName) {
+    this(fileName, null);
+  }
+
+  public QuoteSaxParser (String fileName, QuoteList quoteList) {
     try {
       File quoteFile = new File (fileName);
 
-      handler = new QuoteSaxHandler();
+      handler = new QuoteSaxHandler(quoteList);
       SAXParserFactory factory = SAXParserFactory.newInstance();
       SAXParser saxParser =  factory.newSAXParser();
       saxParser.parse (quoteFile, handler);

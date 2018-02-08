@@ -39,6 +39,28 @@ public class Quote {
 
   @Override
   public String toString () {
-    return quoteText + '\n' + "-" + author;
+    return quoteText + "\n  --" + author;
+  }
+
+  public String toXml() {
+    StringBuilder sb = new StringBuilder();
+
+    sb.append("  <").append(QuoteList.QuoteElem).append(">\n");
+    sb.append("    <").append(QuoteList.QuoteTextElem).append(">")
+                      .append(this.quoteText)
+                      .append("</").append(QuoteList.QuoteTextElem)
+                      .append(">\n");
+
+    sb.append("    <").append(QuoteList.QuoteAuthorElem).append(">")
+                      .append(this.author)
+                      .append("</").append(QuoteList.QuoteAuthorElem)
+                      .append(">\n");
+    sb.append("  </").append(QuoteList.QuoteElem).append(">\n");
+
+    return sb.toString();
+  }
+
+  public String toInternalFormat() { // Not JSON nor XML
+    return "Quote {author=\'" + author + "\', quoteText=\'" + quoteText + "\'}";
   }
 }
