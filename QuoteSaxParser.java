@@ -1,5 +1,3 @@
-package quotes;
-
 import java.io.*;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.parsers.SAXParser;

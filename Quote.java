@@ -1,5 +1,3 @@
-package quotes;
-
 /**
  * Quote data object.
  * @author Mongkoldech Rajapakdee & Jeff offutt
@@ -10,7 +8,7 @@ package quotes;
 public class Quote
 {
    private String author;
-   private String quoteText;
+   private static String quoteText;
 
    // Default constructor does nothing
    public Quote ()
@@ -35,7 +33,7 @@ public class Quote
    }
 
    // Getter and setter for quoteText
-   public String getQuoteText ()
+   public static String getQuoteText()
    {
       return quoteText;
    }
