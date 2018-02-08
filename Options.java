@@ -10,12 +10,14 @@ public class Options {
     public String searchStr; // search string extracted from arguments
     public CliMain.Action action;    // type of action to perform
     public int    param;     // param to pass to action
+    public Quote q;
 
     public Options() {
         this.quotefile = "quotes/quotes.xml";
         this.searchStr = "";
         this.action    = CliMain.Action.RANDOM;
         this.param     = QuoteList.SearchBothVal;
+        this.q = q;
     }
 
     public static Options parseArgs(String[] args) {

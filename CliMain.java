@@ -28,7 +28,7 @@ public class CliMain {
         getSearch(options.searchStr, options.param);
         break;
       case ADDQUOTE: //case for adding a quote
-        //addQuote();
+        addQuote(options.q);
 
       case HELP:
       default:
