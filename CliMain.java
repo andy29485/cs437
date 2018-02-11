@@ -41,6 +41,9 @@ public class CliMain {
   }
 
   public static void getIndex(int index) {
+    if (index < 0 || index >= CliMain.quoteList.getSize()) {
+      return;
+    }
     Quote q = CliMain.quoteList.getQuote(index);
     System.out.println(q);
   }
