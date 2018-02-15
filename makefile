@@ -2,7 +2,7 @@
 all: compile
 	
 compile:
-	javac *.java  -cp .:servlet.jar
+	javac *.java  -cp .:junit-4.10.jar
 
 install:
 	echo Moving .class files to web app directory
@@ -18,6 +18,11 @@ install:
 
 run:
 	echo TODO
+
+test: compile
+	cd ..
+	java -cp .:junit-4.10.jar org.junit.runner.JUnitCore quotes.QuoteListTest 
+	cd quotes
 
 clean:
 	rm *class
