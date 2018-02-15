@@ -72,4 +72,18 @@ public class QuoteListTest {
     assertTrue("QList search multiple - mode text",   result2.getSize() == 4);
     assertTrue("QList search multiple - mode both",   result3.getSize() == 4);
   }
+  @Test
+  public void testSearchForText() {
+    int mode1 = QuoteList.SearchAuthorVal;
+    int mode2 = QuoteList.SearchTextVal;
+    int mode3 = QuoteList.SearchBothVal;
+
+    QuoteList result1 = this.qlist.search("Text 1", mode1);
+    QuoteList result2 = this.qlist.search("Text 2", mode2);
+    QuoteList result3 = this.qlist.search("Text 3", mode3);
+
+    assertTrue("wrong mode", result1.getSize() == 0);
+    assertTrue("Quote found", result2.getSize() == 1);
+    assertTrue("found", result3.getSize() == 1);
+  }
 }
