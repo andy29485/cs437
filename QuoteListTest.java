@@ -12,7 +12,7 @@ public class QuoteListTest {
   QuoteList qlist;
 
   public static void main(String args[]){
-    org.junit.runner.JUnitCore.main("QuoteListTest");
+    org.junit.runner.JUnitCore.main("quotes.QuoteListTest");
   }
 
   @Before
@@ -30,13 +30,46 @@ public class QuoteListTest {
     int mode1 = QuoteList.SearchAuthorVal;
     int mode2 = QuoteList.SearchTextVal;
     int mode3 = QuoteList.SearchBothVal;
+    String search = "DOES NOT EXIST";
 
-    QuoteList result1 = this.qlist.search("DOES NOT EXIST", mode1);
-    QuoteList result2 = this.qlist.search("DOES NOT EXIST", mode2);
-    QuoteList result3 = this.qlist.search("DOES NOT EXIST", mode3);
+    QuoteList result1 = this.qlist.search(search, mode1);
+    QuoteList result2 = this.qlist.search(search, mode2);
+    QuoteList result3 = this.qlist.search(search, mode3);
 
     assertTrue("QList 1 check empty", result1.getSize() == 0);
     assertTrue("QList 2 check empty", result2.getSize() == 0);
     assertTrue("QList 3 check empty", result3.getSize() == 0);
+  }
+
+  @Test
+  public void testSearchAuthor() {
+    int mode1 = QuoteList.SearchAuthorVal;
+    int mode2 = QuoteList.SearchTextVal;
+    int mode3 = QuoteList.SearchBothVal;
+    String search = "Author 2";
+
+    QuoteList result1 = this.qlist.search(search, mode1);
+    QuoteList result2 = this.qlist.search(search, mode2);
+    QuoteList result3 = this.qlist.search(search, mode3);
+
+    assertTrue("QList search author - mode author", result1.getSize() == 1);
+    assertTrue("QList search author - mode text",   result2.getSize() == 0);
+    assertTrue("QList search author - mode both",   result3.getSize() == 1);
+  }
+
+  @Test
+  public void testSearchTextMultipleResults() {
+    int mode1 = QuoteList.SearchAuthorVal;
+    int mode2 = QuoteList.SearchTextVal;
+    int mode3 = QuoteList.SearchBothVal;
+    String search = "Text";
+
+    QuoteList result1 = this.qlist.search(search, mode1);
+    QuoteList result2 = this.qlist.search(search, mode2);
+    QuoteList result3 = this.qlist.search(search, mode3);
+
+    assertTrue("QList search multiple - mode author", result1.getSize() == 0);
+    assertTrue("QList search multiple - mode text",   result2.getSize() == 4);
+    assertTrue("QList search multiple - mode both",   result3.getSize() == 4);
   }
 }

@@ -20,9 +20,7 @@ run:
 	echo TODO
 
 test: compile
-	cd ..
-	java -cp .:junit-4.10.jar org.junit.runner.JUnitCore quotes.QuoteListTest 
-	cd quotes
+	java -cp ../:junit-4.10.jar quotes.QuoteListTest 
 
 clean:
 	rm *class
