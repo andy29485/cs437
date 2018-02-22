@@ -65,11 +65,29 @@ public class CalTest {
   assertEquals(61,x); 
 }
 
+@Test
+  public void testForLeapYear() {
+  Cal c = new Cal();
+  int month1=02;
+  int day1= 29;
+  int month2 = 3;
+  int day2 = 31;
+  int year = 2016;
+  int x = c.cal(month1,day1,month2,day2,year);
+  assertEquals(31,x); 
+}
 
-
-
-
-  
+@Test
+  public void testForNONLeapYear() {
+  Cal c = new Cal();
+  int month1=02;
+  int day1= 28;
+  int month2 = 3;
+  int day2 = 31;
+  int year = 2018;
+  int x = c.cal(month1,day1,month2,day2,year);
+  assertEquals(31,x); 
+}
 
 
 }
