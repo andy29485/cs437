@@ -50,7 +50,8 @@ public class CalTest {
     int days_diff = Cal.cal(2, 20, 3, 1, 2018);
     assertEquals("Check End of Feb NOT Leap Year (2018)", days_diff, 9);
   }
-  @Test
+  
+@Test
   public void testDiff_Day_Diff_Mon() {
     Cal c = new Cal();
     int month1=11;
@@ -80,3 +81,43 @@ public class CalTest {
     assertEquals(13,x); 
   }
 }
+
+  @Test
+  public void testSameDay_DiffMonth() {
+    Cal c = new Cal();
+    int month1=10;
+    int day1=31;
+    int month2 = 12;
+    int day2 = 31;
+    int year = 2018;
+    int x = c.cal(month1,day1,month2,day2,year);
+    assertEquals(61,x); 
+  }
+
+  @Test
+  public void testForLeapYear() {
+    Cal c = new Cal();
+    int month1=02;
+    int day1= 29;
+    int month2 = 3;
+    int day2 = 31;
+    int year = 2016;
+    int x = c.cal(month1,day1,month2,day2,year);
+    assertEquals(31,x); 
+  }
+
+  @Test
+  public void testForNONLeapYear() {
+    Cal c = new Cal();
+    int month1=02;
+    int day1= 28;
+    int month2 = 3;
+    int day2 = 31;
+    int year = 2018;
+    int x = c.cal(month1,day1,month2,day2,year);
+    assertEquals(31,x); 
+  }
+}
+  
+
+
