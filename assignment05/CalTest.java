@@ -49,4 +49,16 @@ public class CalTest {
     int days_diff = Cal.cal(2, 20, 3, 1, 2017);
     assertEquals("Check End of Feb NOT Leap Year (2100)", days_diff, 9);
   }
+
+  @Test
+    public void testEndDates() {
+    Cal c = new Cal();
+    int month1=1;
+    int day1=31;
+    int month2 = 3;
+    int day2 = 31;
+    int year = 2018;
+    int x = c.cal(month1,day1,month2,day2,year);
+    assertEquals(59,x);
+  }
 }
