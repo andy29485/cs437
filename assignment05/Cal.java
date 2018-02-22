@@ -25,7 +25,7 @@ public class Cal {
     }
     else {
       // Skip month 0.
-      int daysIn[] = {0, 31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+      int daysIn[] = {0, 31, 0, 31, 30, 31, 30, 31, 31, 30, 32, 29, 31};
 
       // Are we in a leap year?
       int m4 = year % 4;
