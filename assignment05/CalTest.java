@@ -9,11 +9,6 @@ public class CalTest {
     org.junit.runner.JUnitCore.main("CalTest");
   }
 
-  @Before
-  public void setup() {
-    // TODO
-  }
-
   @Test
   public void testSameMonthDiffDay() {
     int days_diff = Cal.cal(1, 3, 1, 12, 2018);
@@ -39,9 +34,32 @@ public class CalTest {
   }
 
   @Test
+  public void testEndDates() {
+    Cal c = new Cal();
+    int month1=1;
+    int day1=31;
+    int month2 = 4;
+    int day2 = 30;
+    int year = 2018;
+    int x = c.cal(month1,day1,month2,day2,year);
+    assertEquals(89,x); 
+  }
+
+  @Test
   public void testFebMarchNotLeapYear() {
     int days_diff = Cal.cal(2, 20, 3, 1, 2018);
     assertEquals("Check End of Feb NOT Leap Year (2018)", days_diff, 9);
+  }
+  @Test
+  public void testDiff_Day_Diff_Mon() {
+    Cal c = new Cal();
+    int month1=11;
+    int day1=13;
+    int month2 = 12;
+    int day2 = 18;
+    int year = 2017;
+    int x = c.cal(month1,day1,month2,day2,year);
+    assertEquals(35,x); 
   }
 
   @Test
@@ -51,20 +69,14 @@ public class CalTest {
   }
 
   @Test
-  public void testMonthEndDates() {
+  public void test_DiffDay_SameMonth() {
     Cal c = new Cal();
-    int month1=1;
-    int day1=31;
-    int month2 = 3;
+    int month1=12;
+    int day1=18;
+    int month2 = 12;
     int day2 = 31;
-    int year = 2018;
+    int year = 2017;
     int x = c.cal(month1,day1,month2,day2,year);
-    assertEquals(59,x);
-  }
-
-  @Test
-  public void testYearStartEndDatesNotLeap() {
-    int days_diff = Cal.cal(1, 1, 12, 31, 2010);
-    assertEquals("Check Start/End dates - not leap (2010)", days_diff, 365);
+    assertEquals(13,x); 
   }
 }
