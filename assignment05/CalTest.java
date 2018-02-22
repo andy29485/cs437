@@ -51,7 +51,7 @@ public class CalTest {
   }
 
   @Test
-    public void testEndDates() {
+  public void testMonthEndDates() {
     Cal c = new Cal();
     int month1=1;
     int day1=31;
@@ -60,5 +60,11 @@ public class CalTest {
     int year = 2018;
     int x = c.cal(month1,day1,month2,day2,year);
     assertEquals(59,x);
+  }
+
+  @Test
+  public void testYearStartEndDatesNotLeap() {
+    int days_diff = Cal.cal(1, 1, 12, 31, 2010);
+    assertEquals("Check Start/End dates - not leap (2010)", days_diff, 365);
   }
 }
