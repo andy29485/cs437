@@ -26,8 +26,8 @@ run:
 
 test: test_quotes test_assignment05
 
-test_assignment05: compile_quotes
-	java -cp -cp .:assignment05:junit-4.10.jar CalTest 
+test_assignment05: compile_assignment05
+	java -cp .:assignment05:junit-4.10.jar CalTest
 
 test_quotes: compile_quotes
 	java -cp .:junit-4.10.jar quotes.QuoteListTest 
