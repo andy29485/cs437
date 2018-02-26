@@ -3,11 +3,11 @@ all: compile
 
 compile: compile_quotes compile_assignment05
 
-compile_assignment05:
-	javac assignment05/*.java  -cp .:assignment05
+compile_assignment05: junit.jar
+	javac assignment05/*.java  -cp .:assignment05:junit.jar
 
-compile_quotes:
-	javac quotes/*.java  -cp .:quotes
+compile_quotes: junit.jar
+	javac quotes/*.java  -cp .:quotes:junit.jar
 
 install:
 	echo Moving .class files to web app directory
@@ -24,16 +24,15 @@ install:
 run:
 	echo TODO
 
-junit:
+junit.jar:
 	wget -O junit.jar http://central.maven.org/maven2/junit/junit/4.12/junit-4.12.jar
-
 
 test: test_quotes test_assignment05
 
-test_assignment05: compile_assignment05 junit
+test_assignment05: compile_assignment05 junit.jar
 	java -cp .:assignment05:junit.jar CalTest
 
-test_quotes: compile_quotes junit
+test_quotes: compile_quotes junit.jar
 	java -cp .:junit.jar quotes.QuoteListTest
 
 clean:
