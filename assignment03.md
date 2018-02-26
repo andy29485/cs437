@@ -1,4 +1,16 @@
-# Second Modification modification (changes made for Assignment 3)
+# Assignment 3
+
+### Contributors
+- Andriy Zasypkin
+- Hamza Khanane
+
+### Type of interface
+Command Line Interface (CLI)
+
+### Location of source files
+https://github.com/andy29485/swe437-assignments/
+
+<div style="page-break-after: always;"></div>
 
 ## Documentation Log
 1. Normalized style

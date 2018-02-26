@@ -1,0 +1,5 @@
+image: openjdk:alpine
+test:
+  script:
+  - make test
+

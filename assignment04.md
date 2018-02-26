@@ -10,6 +10,8 @@ Command Line Interface (CLI)
 ### Location of source files
 https://github.com/andy29485/swe437-quotes/
 
+<div style="page-break-after: always;"></div>
+
 ### Usage
 `java CliMain [-f filename]` get random quote
 `java CliMain [-f filename] -i|--index <quote number>` get quote with index
