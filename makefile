@@ -1,13 +1,14 @@
 
+JARS="junit.jar:hamcrest-core.jar"
 all: compile
 
 compile: compile_quotes compile_assignment05
 
 compile_assignment05: junit.jar hamcrest-core.jar
-	javac assignment05/*.java  -cp .:assignment05:junit.jar:hamcrest-core.jar
+	javac assignment05/*.java  -cp .:assignment05:$(JARS)
 
 compile_quotes: junit.jar hamcrest-core.jar
-	javac quotes/*.java  -cp .:quotes:junit.jar:hamcrest-core.jar
+	javac quotes/*.java  -cp .:quotes:$(JARS)
 
 install:
 	echo Moving .class files to web app directory
@@ -33,10 +34,10 @@ hamcrest-core.jar:
 test: test_quotes test_assignment05
 
 test_assignment05: compile_assignment05 junit.jar hamcrest-core.jar
-	java -cp .:assignment05:junit.jar:hamcrest-core.jar CalTest
+	java -cp .:assignment05:$(JARS) CalTest
 
 test_quotes: compile_quotes junit.jar hamcrest-core.jar
-	java -cp .:junit.jar"hamcrest-core.jar quotes.QuoteListTest
+	java -cp .:$(JARS) quotes.QuoteListTest
 
 clean:
 	rm *class
