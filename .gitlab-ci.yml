@@ -1,6 +1,6 @@
 image: openjdk:alpine
 test:
   script:
-  - apk --update add make
+  - apk --update add make wget
   - make test
 

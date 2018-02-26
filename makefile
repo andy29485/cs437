@@ -3,11 +3,11 @@ all: compile
 
 compile: compile_quotes compile_assignment05
 
-compile_assignment05: junit.jar
-	javac assignment05/*.java  -cp .:assignment05:junit.jar
+compile_assignment05: junit.jar hamcrest-core.jar
+	javac assignment05/*.java  -cp .:assignment05:junit.jar:hamcrest-core.jar
 
-compile_quotes: junit.jar
-	javac quotes/*.java  -cp .:quotes:junit.jar
+compile_quotes: junit.jar hamcrest-core.jar
+	javac quotes/*.java  -cp .:quotes:junit.jar:hamcrest-core.jar
 
 install:
 	echo Moving .class files to web app directory
@@ -25,15 +25,18 @@ run:
 	echo TODO
 
 junit.jar:
-	wget -O junit.jar http://central.maven.org/maven2/junit/junit/4.12/junit-4.12.jar
+	wget -O junit.jar https://search.maven.org/remotecontent?filepath=junit/junit/4.12/junit-4.12.jar
+
+hamcrest-core.jar:
+	wget -O hamcrest-core.jar https://search.maven.org/remotecontent?filepath=org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
 
 test: test_quotes test_assignment05
 
-test_assignment05: compile_assignment05 junit.jar
-	java -cp .:assignment05:junit.jar CalTest
+test_assignment05: compile_assignment05 junit.jar hamcrest-core.jar
+	java -cp .:assignment05:junit.jar:hamcrest-core.jar CalTest
 
-test_quotes: compile_quotes junit.jar
-	java -cp .:junit.jar quotes.QuoteListTest
+test_quotes: compile_quotes junit.jar hamcrest-core.jar
+	java -cp .:junit.jar"hamcrest-core.jar quotes.QuoteListTest
 
 clean:
 	rm *class
