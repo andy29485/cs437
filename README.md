@@ -8,7 +8,7 @@
 Command Line Interface (CLI)
 
 ## Location of source files
-https://github.com/andy29485/swe437-quotes/
+https://github.com/andy29485/swe437-assignments/
 
 ## Usage
 `java CliMain [-f filename]` get random quote
