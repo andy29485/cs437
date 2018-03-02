@@ -13,9 +13,10 @@ public class Quote {
   private String author;
   private String quoteText;
 
-  // Default constructor does nothing
-  public Quote ()
-  {  }
+  // Default constructor initializes empty strings
+  public Quote () {
+    this("", "");
+  }
 
   // Constructor that assigns both strings
   public Quote (String author, String quoteText) {
@@ -27,6 +28,7 @@ public class Quote {
   public String getAuthor () {
     return author;
   }
+
   public void setAuthor (String author) {
     this.author = author;
   }
@@ -35,8 +37,13 @@ public class Quote {
   public String getQuoteText () {
     return quoteText;
   }
-  public void addQuoteText (String quoteText) {
+
+  public void setQuoteText (String quoteText) {
     this.quoteText = quoteText;
+  }
+
+  public void addQuoteText (String quoteText) {
+    this.setQuoteText(quoteText);
   }
 
   @Override
@@ -47,18 +54,15 @@ public class Quote {
   public void writeXml(XMLStreamWriter xsw) throws XMLStreamException {
     xsw.writeStartElement(QuoteList.QuoteElem);
 
-
     xsw.writeCharacters("\n    ");
     xsw.writeStartElement(QuoteList.QuoteTextElem);
     xsw.writeCharacters(this.quoteText);
     xsw.writeEndElement();
 
-
     xsw.writeCharacters("\n    ");
     xsw.writeStartElement(QuoteList.QuoteAuthorElem);
     xsw.writeCharacters(this.author);
     xsw.writeEndElement();
-
 
     xsw.writeCharacters("\n  ");
     xsw.writeEndElement();

@@ -2,11 +2,6 @@ package quotes;
 
 import org.junit.*;
 import static org.junit.Assert.*;
-import java.util.ArrayList;
-import java.util.Random;
-import java.io.*;
-import javax.xml.stream.*;
-
 
 public class QuoteListTest {
   QuoteList qlist;

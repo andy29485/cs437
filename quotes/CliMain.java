@@ -1,4 +1,5 @@
 package quotes;
+
 import java.util.ArrayList;
 
 public class CliMain {
