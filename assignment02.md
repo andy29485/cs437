@@ -12,7 +12,9 @@ https://github.com/andy29485/swe437-assignments/
 
 <div style="page-break-after: always;"></div>
 
-## Documentation of Changes
+## Assignment Write Up
+
+### Documentation of Changes
 1. removed the `quoteserve.java` - no methods from this file were used
 2. removed deploy file, changing it to a makefile for easier compilation
 3. Created `CliMain.java` file for a main method to use for the command line
@@ -26,7 +28,7 @@ https://github.com/andy29485/swe437-assignments/
     - looped through the quote array returned by search and printed each of the quotes
 4. Changed the `Quote.java` toString method to print the quote appropriately
 
-## Maintainability Statment
+### Maintainability Statement
 
 - What did the original programmers do that made it hard change the software?
   - There was no readme file or documentation for the code.

@@ -12,7 +12,9 @@ https://github.com/andy29485/swe437-assignments/
 
 <div style="page-break-after: always;"></div>
 
-## Documentation Log
+## Assignment Write Up
+
+### Documentation Log
 1. Normalized style
 2. Change method `setQuote` to `addQuote` since that is more self documenting.
   - The word set implied that it was changed not appended.
@@ -24,21 +26,21 @@ https://github.com/andy29485/swe437-assignments/
 6. Changed formatting
 7. Added arguments for adding a new quote
 
-## Description
-  On the fron end side, quotes were verified as agruments - guarenting
+### Description
+  On the front end side, quotes were verified as arguments - guaranteeing
 both the author and the text to be strings. On the back end (writing the file)
-we used an XML building library, thus guarenting that the XML would escape any
+we used an XML building library, thus qua renting that the XML would escape any
 characters that would invalidate it. In this way the integrity of the quotes is
 maintained (and the user is able to put just about any string as the quote).
 
-## Maintainability Assessment
+### Maintainability Assessment
   Another thing that we found that made it hard to maintain this code was a
-poorly documented method `setQuote`. The name was missleading as the method
+poorly documented method `setQuote`. The name was misleading as the method
 was not setting anything but rather adding quotes to a list. But there were
 many methods with good names and useful functionality which made it easy to
 understand what they do.
 
-## Running
+### Running
 ```bash
 $ java quotes.CliMain --help
 Quotes program usage:
