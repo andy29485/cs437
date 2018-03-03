@@ -26,7 +26,6 @@ https://github.com/andy29485/swe437-assignments/
 5. Can a keyword also be in the quote text?
   - Yes, but that will not be searched
 6. How should keyword searching interact with the other searches?
-  - CLI (`-k <word>` will look for word in keywords)
   - Can be used in combination with regular search (treated as **and**)
 7. When quotes are printed, should the keywords also be printed?
   - No, since they are not part of the quote
@@ -109,8 +108,6 @@ https://github.com/andy29485/swe437-assignments/
 ### Running
 ```bash
 $ make test
-javac -cp "tests:.":"junit.jar:hamcrest-core.jar:." quotes/*java tests/quotes/*.java
-java -cp "tests:.":"junit.jar:hamcrest-core.jar:." quotes.QuotesTestRunner
 JUnit version 4.10
 ....................
 Time: 0.037
@@ -118,7 +115,6 @@ Time: 0.037
 OK (20 tests)
 
 $ java quotes.CliMain -k tag-dne
-
 
 $ java quotes.CliMain -k tag1
 Text 1
@@ -136,13 +132,10 @@ Text 4
 
 $ java quotes.CliMain -k tag-new
 
-
 $ java quotes.CliMain -A "New Auth" -t "New Text" -k tag-new
-
 
 $ java quotes.CliMain -k tag-new
 New Text
   --New Auth
-
 ```
 
