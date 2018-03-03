@@ -19,9 +19,9 @@ public class Quote {
     protected List<String> tags;
 
     // Default constructor initializes empty strings
-    public Quote () {
-        this("", "");
-    }
+    //public Quote () {
+        //this("", "");
+    //}
 
     // varg constructor for easier use when testing
     //public Quote (String author, String quoteText, ArrayList<String> tags) {
