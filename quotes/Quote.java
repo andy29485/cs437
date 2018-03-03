@@ -3,6 +3,7 @@ package quotes;
 import javax.xml.stream.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -13,104 +14,102 @@ import java.util.List;
  * This bean class provides getters and setters for both, plus a toString()
  */
 public class Quote {
-  private   String       author;
-  private   String       quoteText;
-  protected List<String> tags;
+    private   String       author;
+    private   String       quoteText;
+    protected HashSet<String> tags;
 
-  // Default constructor initializes empty strings
-  public Quote () {
-    this("", "");
-  }
-
-  // varg constructor for easier use when testing
-  public Quote (String author, String quoteText, String... tags) {
-    this(author, quoteText, new ArrayList<String>(Arrays.asList(tags)));
-  }
-
-  // Constructor that assigns both strings
-  public Quote (String author, String quoteText, List<String> tags) {
-    this.author    = author;
-    this.quoteText = quoteText;
-    this.tags      = tags;
-  }
-
-  // Getter and setter for author
-  public String getAuthor () {
-    return author;
-  }
-
-  public void setAuthor (String author) {
-    this.author = author;
-  }
-
-  // Getter and setter for quoteText
-  public String getQuoteText () {
-    return quoteText;
-  }
-
-  public void setQuoteText (String quoteText) {
-    this.quoteText = quoteText;
-  }
-
-  public void addQuoteText (String quoteText) {
-    this.setQuoteText(quoteText);
-  }
-
-  public boolean hasTag(String t) {
-    for(String tag : this.tags) {
-      if(tag.equalsIgnoreCase(t)) {
-        return true;
-      }
+    // Default constructor initializes empty strings
+    public Quote () {
+        this("", "");
     }
-    return false;
-  }
 
-  public void addTag(String t) {
-    if(this.hasTag(t))
-      return;
-    this.tags.add(t);
-  }
-
-  @Override
-  public String toString () {
-    return quoteText + "\n  --" + author;
-  }
-
-  public void writeXml(XMLStreamWriter xsw) throws XMLStreamException {
-    xsw.writeStartElement(QuoteList.QuoteElem);
-
-    // Write text
-    xsw.writeCharacters("\n    ");
-    xsw.writeStartElement(QuoteList.QuoteTextElem);
-    xsw.writeCharacters(this.quoteText);
-    xsw.writeEndElement();
-
-    // Write author name
-    xsw.writeCharacters("\n    ");
-    xsw.writeStartElement(QuoteList.QuoteAuthorElem);
-    xsw.writeCharacters(this.author);
-    xsw.writeEndElement();
-
-    // Write keywords (outher list)
-    xsw.writeCharacters("\n    ");
-    xsw.writeStartElement(QuoteList.QuoteTagElem+"s");
-    for (String tag : this.tags) {
-      // Write keywords (inner individual)
-      xsw.writeCharacters("\n      ");
-      xsw.writeStartElement(QuoteList.QuoteTagElem);
-      xsw.writeCharacters(tag);
-      xsw.writeEndElement();
+    // varg constructor for easier use when testing
+    public Quote (String author, String quoteText, String... tags) {
+        this(author, quoteText, new HashSet<>(Arrays.asList(tags)));
     }
-    // end keywords outer
-    xsw.writeCharacters("\n    ");
-    xsw.writeEndElement();
 
-    // end quote
-    xsw.writeCharacters("\n  ");
-    xsw.writeEndElement();
-  }
+    // Constructor that assigns both strings
+    public Quote (String author, String quoteText, HashSet<String> tags) {
+        this.author    = author;
+        this.quoteText = quoteText;
+        this.tags      = tags;
+    }
 
-  public String toInternalFormat() { // Not JSON nor XML
-    return "Quote {author=\'" + author + "\', quoteText=\'" + quoteText + "\'}";
-  }
+    // Getter and setter for author
+    public String getAuthor () {
+        return author;
+    }
+
+    public void setAuthor (String author) {
+        this.author = author;
+    }
+
+    // Getter and setter for quoteText
+    public String getQuoteText () {
+        return quoteText;
+    }
+
+    public void setQuoteText (String quoteText) {
+        this.quoteText = quoteText;
+    }
+
+    public void addQuoteText (String quoteText) {
+        this.setQuoteText(quoteText);
+    }
+
+    public boolean hasTag(String t) {
+        for(String tag : this.tags) {
+            if(tag.equalsIgnoreCase(t)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addTag(String t) {
+        this.tags.add(t);
+    }
+
+    @Override
+    public String toString () {
+        return quoteText + "\n  --" + author;
+    }
+
+    public void writeXml(XMLStreamWriter xsw) throws XMLStreamException {
+        xsw.writeStartElement(QuoteList.QuoteElem);
+
+        // Write text
+        xsw.writeCharacters("\n    ");
+        xsw.writeStartElement(QuoteList.QuoteTextElem);
+        xsw.writeCharacters(this.quoteText);
+        xsw.writeEndElement();
+
+        // Write author name
+        xsw.writeCharacters("\n    ");
+        xsw.writeStartElement(QuoteList.QuoteAuthorElem);
+        xsw.writeCharacters(this.author);
+        xsw.writeEndElement();
+
+        // Write keywords (outher list)
+        xsw.writeCharacters("\n    ");
+        xsw.writeStartElement(QuoteList.QuoteTagElem+"s");
+        for (String tag : this.tags) {
+            // Write keywords (inner individual)
+            xsw.writeCharacters("\n      ");
+            xsw.writeStartElement(QuoteList.QuoteTagElem);
+            xsw.writeCharacters(tag);
+            xsw.writeEndElement();
+        }
+        // end keywords outer
+        xsw.writeCharacters("\n    ");
+        xsw.writeEndElement();
+
+        // end quote
+        xsw.writeCharacters("\n  ");
+        xsw.writeEndElement();
+    }
+
+    public String toInternalFormat() { // Not JSON nor XML
+        return "Quote {author=\'" + author + "\', quoteText=\'" + quoteText + "\'}";
+    }
 }
