@@ -14,10 +14,10 @@ public class QuoteListTest {
   public void setup() {
     this.qlist = new QuoteList();
 
-    this.qlist.addQuote(new Quote("Author 1", "Text 1"));
-    this.qlist.addQuote(new Quote("Author 2", "Text 2"));
-    this.qlist.addQuote(new Quote("Author 3", "Text 3"));
-    this.qlist.addQuote(new Quote("Author 4", "Text 4"));
+    this.qlist.addQuote(new Quote("Author 1", "Text 1", "tag1", "tag-all"));
+    this.qlist.addQuote(new Quote("Author 2", "Text 2", "tag2", "tag-all"));
+    this.qlist.addQuote(new Quote("Author 3", "Text 3", "tag3", "tag-all"));
+    this.qlist.addQuote(new Quote("Author 4", "Text 4", "tag4", "tag-all"));
   }
 
   @Test
@@ -31,9 +31,9 @@ public class QuoteListTest {
     QuoteList result2 = this.qlist.search(search, mode2);
     QuoteList result3 = this.qlist.search(search, mode3);
 
-    assertTrue("QList 1 check empty", result1.getSize() == 0);
-    assertTrue("QList 2 check empty", result2.getSize() == 0);
-    assertTrue("QList 3 check empty", result3.getSize() == 0);
+    assertEquals("QList 1 check empty", 0, result1.getSize());
+    assertEquals("QList 2 check empty", 0, result2.getSize());
+    assertEquals("QList 3 check empty", 0, result3.getSize());
   }
 
   @Test
@@ -47,9 +47,9 @@ public class QuoteListTest {
     QuoteList result2 = this.qlist.search(search, mode2);
     QuoteList result3 = this.qlist.search(search, mode3);
 
-    assertTrue("QList search author - mode author", result1.getSize() == 1);
-    assertTrue("QList search author - mode text",   result2.getSize() == 0);
-    assertTrue("QList search author - mode both",   result3.getSize() == 1);
+    assertEquals("QList search author - mode author", 1, result1.getSize());
+    assertEquals("QList search author - mode text",   0, result2.getSize());
+    assertEquals("QList search author - mode both",   1, result3.getSize());
   }
 
   @Test
@@ -63,9 +63,9 @@ public class QuoteListTest {
     QuoteList result2 = this.qlist.search(search, mode2);
     QuoteList result3 = this.qlist.search(search, mode3);
 
-    assertTrue("QList search multiple - mode author", result1.getSize() == 0);
-    assertTrue("QList search multiple - mode text",   result2.getSize() == 4);
-    assertTrue("QList search multiple - mode both",   result3.getSize() == 4);
+    assertEquals("QList search multiple - mode author", 0, result1.getSize());
+    assertEquals("QList search multiple - mode text",   4, result2.getSize());
+    assertEquals("QList search multiple - mode both",   4, result3.getSize());
   }
 
   @Test
@@ -79,9 +79,9 @@ public class QuoteListTest {
     QuoteList result2 = this.qlist.search(search, mode2);
     QuoteList result3 = this.qlist.search(search, mode3);
 
-    assertTrue("QList search text case - mode author", result1.getSize() == 0);
-    assertTrue("QList search text case - mode text",   result2.getSize() == 4);
-    assertTrue("QList search text case - mode both",   result3.getSize() == 4);
+    assertEquals("QList search text case - mode author", 0, result1.getSize());
+    assertEquals("QList search text case - mode text",   4, result2.getSize());
+    assertEquals("QList search text case - mode both",   4, result3.getSize());
   }
 
   @Test
@@ -94,8 +94,32 @@ public class QuoteListTest {
     QuoteList result2 = this.qlist.search("Text 2", mode2);
     QuoteList result3 = this.qlist.search("Text 3", mode3);
 
-    assertTrue("wrong mode", result1.getSize() == 0);
-    assertTrue("Quote found", result2.getSize() == 1);
-    assertTrue("found", result3.getSize() == 1);
+    assertEquals("wrong mode",  0, result1.getSize());
+    assertEquals("Quote found", 1, result2.getSize());
+    assertEquals("found",       1, result3.getSize());
+  }
+
+  @Test
+  public void testNonExistantTag() {
+    QuoteList results = this.qlist.searchTags("dne-tag");
+    assertEquals("Matched quotes w/ non-existant tag", 0, results.getSize());
+  }
+
+  @Test
+  public void testExistingTag() {
+    QuoteList results = this.qlist.searchTags("tag1");
+    assertEquals("Failed to find quote w/ unique tag", 1, results.getSize());
+  }
+
+  @Test
+  public void testXMLSavesTags() {
+    assertTrue("QuoteList does not save tags", this.qlist.toXml().contains("tag1"));
+  }
+
+  @Test
+  public void testXMLLoadsTags() {
+    this.qlist = new QuoteList();
+    this.qlist.load("tests/quotes/quotes.xml");
+    assertTrue("QuoteList does not load tags", this.qlist.toXml().contains("tag1"));
   }
 }

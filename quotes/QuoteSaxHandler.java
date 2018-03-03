@@ -56,6 +56,9 @@ public class QuoteSaxHandler extends DefaultHandler {
     else if (qName.equalsIgnoreCase (QuoteList.QuoteTextElem)) {
       currentElement = QuoteList.QuoteTextElem;
     }
+    else if (qName.equalsIgnoreCase (QuoteList.QuoteTagElem)) {
+      currentElement = QuoteList.QuoteTagElem;
+    }
   }
 
   @Override
@@ -75,6 +78,9 @@ public class QuoteSaxHandler extends DefaultHandler {
       }
       else if (currentElement.equalsIgnoreCase (QuoteList.QuoteAuthorElem)) {
         quoteTmp.setAuthor (value);
+      }
+      else if (currentElement.equalsIgnoreCase (QuoteList.QuoteTagElem)) {
+        quoteTmp.addTag (value);
       }
     }
   }

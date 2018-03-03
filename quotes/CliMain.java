@@ -1,9 +1,10 @@
 package quotes;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CliMain {
-  private static QuoteList quoteList;
+  protected static QuoteList quoteList;
 
   public enum Action {INDEX, SEARCH, RANDOM, HELP, ADDQUOTE};
 
@@ -28,10 +29,16 @@ public class CliMain {
         getIndex(options.param);
         break;
       case SEARCH:
-        getSearch(String.join(" ", options.otherArgs), options.param);
+        getSearch(
+                  String.join(" ", options.otherArgs),
+                  options.param,
+                  options.keywords
+        );
         break;
       case ADDQUOTE: //case for adding a quote
-        CliMain.quoteList.addQuote(new Quote(options.author, options.text));
+        CliMain.quoteList.addQuote(
+          new Quote(options.author, options.text, options.keywords)
+        );
         CliMain.quoteList.save(options.quotefile);
         break;
 
@@ -46,18 +53,34 @@ public class CliMain {
       return;
     }
     Quote q = CliMain.quoteList.getQuote(index);
-    System.out.println(q);
+    CliMain.printQuote(q);
   }
 
-  public static void getSearch(String terms, int mode) {
-    QuoteList returnQuote = CliMain.quoteList.search(terms, mode);
-    for (int i = 0; i < returnQuote.getSize(); i++) {
-      System.out.println(returnQuote.getQuote(i));
+  public static QuoteList search(String terms, int mode, List<String> tags) {
+    QuoteList returnQuotes = CliMain.quoteList.search(terms, mode);
+    for (String tag : tags) {
+      returnQuotes = returnQuotes.searchTags(tag);
     }
+    return returnQuotes;
+  }
+
+  public static void getSearch(String terms, int mode, List<String> tags) {
+    QuoteList returnQuotes = CliMain.search(terms, mode, tags);
+    CliMain.printQuotes(returnQuotes);
   }
 
   public static void getRandom() {
     Quote q = CliMain.quoteList.getRandomQuote();
+    CliMain.printQuote(q);
+  }
+
+  public static void printQuotes(QuoteList ql) {
+    for (Quote q : ql) {
+      CliMain.printQuote(q);
+    }
+  }
+
+  public static void printQuote(Quote q) {
     System.out.println(q);
   }
 }

@@ -14,12 +14,6 @@ https://github.com/andy29485/swe437-assignments/
 
 ## Assignment Write Up
 
-### User Stories
-Add a feature in the software when i can search for the quotes using a
-keyword. For example if i type A all the quotes with the tag A come up.
-(incomplete)
-
-
 ### Considerations / Decisions
 1. How many keywords are allowed per quote?
   - As many as needed (only constraint is memeory)
@@ -38,9 +32,117 @@ keyword. For example if i type A all the quotes with the tag A come up.
   - No, since they are not part of the quote
 
 ### Tests / Changes
-TODO: A document that presents your user story, then your first test, then a short description of the changes you made for the test, and a short description of the refactoring. This should be repeated, with one paragraph per test, until all tests are finished.
-Don’t forget to consider refactoring your tests.
+
+- User Story - Users should be able to search for quotes by tags
+  - Test 01 - no quotes returned by search in list for non-existant tag search
+    - Changes
+      - added `searchTags` method to `QuoteList` (return empty list)
+    - Refactor
+      - old `QuoteList` tests to use `assertEquals`
+  - Test 02 - Quotes class should return true for an existing tag
+    - Changes
+      - added `hasTag` method to `Quote`
+    - Refactor - None
+  - Test 03 - `Quote`s class should return false if tag does not exist
+    - Changes
+      - added `tags` property to `Quote`
+      - fixed `hasTag` to check if tags are equal
+      - added constructor to support new property
+    - Refactor - None
+  - Test 04 - `Quote`s should have multiple tags
+    - Changes
+      - changed `tags` property to be a list
+      - fixed constructor of `Quotes`
+      - fixed `hasTag` to loop over
+  - Test 05 - `QuoteList` finds matching quote
+    - Changes
+      - `searchTags` loops over quotes and constructs list
+    - Refactor - None
+  - Test 06 - Options recognize keywords (tags) argument (`-k`) for no args
+    - Changes
+      - added `keywords` param to `Options` class
+    - Refactor
+      - `otherArgs` to be a generic list instead of type ArrayList
+  - Test 07 - recognize multiple `-k` arguments
+    - Changes
+      - fixed `parseArgs`
+    - Refactor - None
+  - Test 08 - CliMain should search for quotes when `-k` is given
+    - Changes
+      - `search` added to `CliMain` which also searches tags
+      - `run` ammended to send `options.keywords` to new method
+    - Refactor
+      - `CliMain.quoteList` is now protected
+      - `CliMain`'s methods print removed and put in seprate method
+      - `QuoteList` is not an iteratable class
+      - if at RANDOM, `parseArgs` goes to SEARCH if tags were given
+- User Story - When adding a quote, user can specify tags
+  - Test 01 - tag can be added
+    - Changes
+      - added `addTag` method to Quote
+    - Refactor - None
+  - Test 02 - tag can be found after being added
+    - Changes
+      - fixed `addTag`
+    - Refactor - None
+  - Test 03 - existing tag does not get added (no error)
+    - Changes
+      - fixed `addTag`
+    - Refactor
+      - `Quote`'s `tags` are now protected
+  - Test 04 - XML gets saved by Quote
+    - Changes
+      - modified `QuoteList`'s `toXml`
+    - Refactor - None
+  - Test 05
+    - Changes
+      - added `QuoteTagElem` param to `QuoteList`
+      - reverted `QuoteList`'s `toXml`
+      - modified `Quote`'s `writeXml`
+    - Refactor - No longer needed
+  - Test 06 - XML gets loaded
+    - Changes
+      - minor changes to `QuoteSaxHandler`'s
+        `characters` and `startElement` methods
+    - Refactor - Added help to `Options` class for the `-k` arg
 
 ### Running
-TODO: demo usage
+```bash
+$ make test
+javac -cp "tests:.":"junit.jar:hamcrest-core.jar:." quotes/*java tests/quotes/*.java
+java -cp "tests:.":"junit.jar:hamcrest-core.jar:." quotes.QuotesTestRunner
+JUnit version 4.10
+....................
+Time: 0.037
+
+OK (20 tests)
+
+$ java quotes.CliMain -k tag-dne
+
+
+$ java quotes.CliMain -k tag1
+Text 1
+  --Author 1
+
+$ java quotes.CliMain -k tag-all
+Text 1
+  --Author 1
+Text 2
+  --Author 2
+Text 3
+  --Author 3
+Text 4
+  --Author 4
+
+$ java quotes.CliMain -k tag-new
+
+
+$ java quotes.CliMain -A "New Auth" -t "New Text" -k tag-new
+
+
+$ java quotes.CliMain -k tag-new
+New Text
+  --New Auth
+
+```
 

@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<quote-list>
+  <quote>
+    <quote-text>Text 1</quote-text>
+    <author>Author 1</author>
+    <tags>
+      <tag>tag1</tag>
+      <tag>tag-all</tag>
+    </tags>
+  </quote>
+  <quote>
+    <quote-text>Text 2</quote-text>
+    <author>Author 2</author>
+    <tags>
+      <tag>tag2</tag>
+      <tag>tag-all</tag>
+    </tags>
+  </quote>
+  <quote>
+    <quote-text>Text 3</quote-text>
+    <author>Author 3</author>
+    <tags>
+      <tag>tag3</tag>
+      <tag>tag-all</tag>
+    </tags>
+  </quote>
+  <quote>
+    <quote-text>Text 4</quote-text>
+    <author>Author 4</author>
+    <tags>
+      <tag>tag4</tag>
+      <tag>tag-all</tag>
+    </tags>
+  </quote>
+</quote-list>

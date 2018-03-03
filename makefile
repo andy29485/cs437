@@ -27,12 +27,7 @@ test_assignment05: compile_assignment05 junit.jar hamcrest-core.jar
 	java -cp $(CP05) CalTest
 
 test_quotes: compile_quotes junit.jar hamcrest-core.jar
-	java -cp $(CPQU) quotes.CliTest
-	java -cp $(CPQU) quotes.OptionsTest
-	java -cp $(CPQU) quotes.QuoteTest
-	java -cp $(CPQU) quotes.QuoteListTest
-	java -cp $(CPQU) quotes.SaxParserTest
-	java -cp $(CPQU) quotes.SaxHandlerTest
+	java -cp $(CPQU) quotes.QuotesTestRunner
 
 # MISC
 clean:

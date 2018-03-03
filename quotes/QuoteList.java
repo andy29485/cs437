@@ -1,6 +1,7 @@
 package quotes;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 import java.io.*;
 import javax.xml.stream.*;
@@ -10,7 +11,7 @@ import javax.xml.stream.*;
  * @author Mongkoldech Rajapakdee & Jeff Offutt
  *       Date: Nov 2009
  */
-public class QuoteList {
+public class QuoteList implements Iterable<Quote> {
   private ArrayList<Quote> quoteArray;
 
   // These constants are used in the servlet
@@ -23,6 +24,7 @@ public class QuoteList {
   public static final String QuoteElem       = "quote";
   public static final String QuoteAuthorElem = "author";
   public static final String QuoteTextElem   = "quote-text";
+  public static final String QuoteTagElem    = "tag";
 
   // For returning a random quote
   private Random randomGen;
@@ -94,6 +96,21 @@ public class QuoteList {
   }
 
   /**
+   * Search the quotes in the list, based on keywords
+   * @param tag keyword input for match
+   * @return QuoteList containing the search results (may be multiple quotes)
+   */
+  public QuoteList searchTags (String tag) {
+    QuoteList results = new QuoteList();
+    for (Quote quote : this.quoteArray) {
+      if(quote.hasTag(tag)) {
+        results.addQuote(quote);
+      }
+    }
+    return results;
+  }
+
+  /**
    * Retuen a random quote object from the list.
    * @return a random Quote
    */
@@ -119,6 +136,7 @@ public class QuoteList {
 
       xsw.writeCharacters("\n");
       xsw.writeEndElement();
+      xsw.writeCharacters("\n"); // new line at end of file
       xsw.writeEndDocument();
 
       return sw.toString();
@@ -145,5 +163,27 @@ public class QuoteList {
       return false;
     }
     return true;
+  }
+
+  public Iterator<Quote> iterator() {
+    Iterator<Quote> it = new Iterator<Quote>() {
+      private int index = 0;
+
+      @Override
+      public boolean hasNext() {
+        return this.index < getSize();
+      }
+
+      @Override
+      public Quote next() {
+        return getQuote(this.index++);
+      }
+
+      @Override
+      public void remove() {
+        throw new UnsupportedOperationException();
+      }
+    };
+    return it;
   }
 }
