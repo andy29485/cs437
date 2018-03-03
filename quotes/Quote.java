@@ -24,8 +24,8 @@ public class Quote {
     }
 
     // varg constructor for easier use when testing
-    public Quote (String author, String quoteText, String... tags) {
-        this(author, quoteText, new HashSet<>(Arrays.asList(tags)));
+    public Quote (String author, String quoteText, HashSet<String> tags) {
+        this(author, quoteText, new HashSet<>());
     }
 
     // Constructor that assigns both strings
