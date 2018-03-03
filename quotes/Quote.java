@@ -24,9 +24,9 @@ public class Quote {
     }
 
     // varg constructor for easier use when testing
-    public Quote (String author, String quoteText, ArrayList<String> tags) {
-        this(author, quoteText, tags= new ArrayList<String>());
-    }
+    //public Quote (String author, String quoteText, ArrayList<String> tags) {
+      //  this(author, quoteText, tags= new ArrayList<String>());
+    //}
 
     // Constructor that assigns both strings
     public Quote (String author, String quoteText, ArrayList<String> tags) {
