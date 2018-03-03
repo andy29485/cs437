@@ -16,7 +16,7 @@ import java.util.List;
 public class Quote {
     private   String       author;
     private   String       quoteText;
-    protected HashSet<String> tags;
+    protected ArrayList<String> tags;
 
     // Default constructor initializes empty strings
     public Quote () {
@@ -24,12 +24,12 @@ public class Quote {
     }
 
     // varg constructor for easier use when testing
-    //public Quote (String author, String quoteText, HashSet<String> tags) {
-        //this(author, quoteText, tags= new HashSet<String>());
-    //}
+    public Quote (String author, String quoteText, ArrayList<String> tags) {
+        this(author, quoteText, tags= new ArrayList<String>());
+    }
 
     // Constructor that assigns both strings
-    public Quote (String author, String quoteText, HashSet<String> tags) {
+    public Quote (String author, String quoteText, ArrayList<String> tags) {
         this.author    = author;
         this.quoteText = quoteText;
         this.tags      = tags;
@@ -67,6 +67,10 @@ public class Quote {
     }
 
     public void addTag(String t) {
+        if(hasTag(t)==true)
+        {
+            return;
+        }
         this.tags.add(t);
     }
 
