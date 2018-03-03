@@ -16,7 +16,7 @@ import java.util.List;
 public class Quote {
     private   String       author;
     private   String       quoteText;
-    protected ArrayList<String> tags;
+    protected List<String> tags;
 
     // Default constructor initializes empty strings
     public Quote () {
