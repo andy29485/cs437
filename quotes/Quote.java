@@ -1,10 +1,11 @@
 package quotes;
 
 import javax.xml.stream.*;
-import java.util.ArrayList;
+
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.Set;
 import java.util.List;
+import java.util.HashSet;
 
 /**
  * Quote data object.
@@ -14,9 +15,9 @@ import java.util.List;
  * This bean class provides getters and setters for both, plus a toString()
  */
 public class Quote {
-  private   String       author;
-  private   String       quoteText;
-  protected List<String> tags;
+  private   String      author;
+  private   String      quoteText;
+  protected Set<String> tags;
 
   // Default constructor initializes empty strings
   public Quote () {
@@ -25,11 +26,16 @@ public class Quote {
 
   // varg constructor for easier use when testing
   public Quote (String author, String quoteText, String... tags) {
-    this(author, quoteText, new ArrayList<String>(Arrays.asList(tags)));
+    this(author, quoteText, Arrays.asList(tags));
+  }
+
+  // List Constructor,
+  public Quote (String author, String quoteText, List<String> tags) {
+    this(author, quoteText, new HashSet<String>(tags));
   }
 
   // Constructor that assigns both strings
-  public Quote (String author, String quoteText, List<String> tags) {
+  public Quote (String author, String quoteText, Set<String> tags) {
     this.author    = author;
     this.quoteText = quoteText;
     this.tags      = tags;

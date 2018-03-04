@@ -3,11 +3,19 @@ package quotes;
 import org.junit.*;
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.util.ArrayList;
+
 public class QuoteListTest {
-  QuoteList qlist;
+  QuoteList       qlist;
+  ArrayList<File> extrafiles;
 
   public static void main(String args[]){
     org.junit.runner.JUnitCore.main("quotes.QuoteListTest");
+  }
+
+  public QuoteListTest() {
+    this.extrafiles = new ArrayList<File>();
   }
 
   @Before
@@ -18,6 +26,14 @@ public class QuoteListTest {
     this.qlist.addQuote(new Quote("Author 2", "Text 2", "tag2", "tag-all"));
     this.qlist.addQuote(new Quote("Author 3", "Text 3", "tag3", "tag-all"));
     this.qlist.addQuote(new Quote("Author 4", "Text 4", "tag4", "tag-all"));
+  }
+
+  @After
+  public void teardown() {
+    for(File f : this.extrafiles) {
+      if(f.exists()) f.delete();
+    }
+    this.extrafiles.clear();
   }
 
   @Test
@@ -114,6 +130,20 @@ public class QuoteListTest {
   @Test
   public void testXMLSavesTags() {
     assertTrue("QuoteList does not save tags", this.qlist.toXml().contains("tag1"));
+  }
+
+  @Test
+  public void testXMLSavesProperly() {
+    QuoteList tmpqutlist = new QuoteList();
+    this.extrafiles.add(new File("tests/quotes/temp_save.xml"));
+
+    this.qlist.save("tests/quotes/temp_save.xml");
+    tmpqutlist.load("tests/quotes/temp_save.xml");
+
+    assertEquals("QuoteList does not save properly",
+                 this.qlist.toXml().length(),
+                 tmpqutlist.toXml().length()
+    );
   }
 
   @Test

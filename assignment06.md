@@ -75,6 +75,7 @@ https://github.com/andy29485/swe437-assignments/
       - `CliMain`'s methods print removed and put in seprate method
       - `QuoteList` is not an iteratable class
       - if at RANDOM, `parseArgs` goes to SEARCH if tags were given
+      - Changed tags to a Set
 - User Story - When adding a quote, user can specify tags
   - Test 01 - tag can be added
     - Changes
@@ -103,16 +104,18 @@ https://github.com/andy29485/swe437-assignments/
     - Changes
       - minor changes to `QuoteSaxHandler`'s
         `characters` and `startElement` methods
-    - Refactor - Added help to `Options` class for the `-k` arg
+    - Refactor
+      - Added help to `Options` class for the `-k` arg
+      - Added test to check if Xml saved properly (size of strings)
 
 ### Running
 ```bash
 $ make test
 JUnit version 4.10
 ....................
-Time: 0.037
+Time: 0.039
 
-OK (20 tests)
+OK (21 tests)
 
 $ java quotes.CliMain -k tag-dne
 
