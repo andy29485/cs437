@@ -73,8 +73,6 @@ public class Quote {
   }
 
   public void addTag(String t) {
-    if(this.hasTag(t))
-      return;
     this.tags.add(t);
   }
 
