@@ -15,11 +15,18 @@ https://github.com/andy29485/swe437-assignments/tree/master/tests/assignment07
 <div style="page-break-after: always;"></div>
 
 ## Assignment Write Up
-
-### TODO
 TODO
 
-### Running
+### Input Domain Model
+TODO
+
+### Test Designs
+TODO
+
+### Automated Tests
+(attached on separate sheet)
+
+### Running Tests
 ```bash
 TODO
 ```
