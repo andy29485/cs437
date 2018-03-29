@@ -11,6 +11,9 @@ junit.jar:
 hamcrest-core.jar:
 	wget -O hamcrest-core.jar https://search.maven.org/remotecontent?filepath=org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
 
+selenium.jar:
+	wget -O selenium.jar https://goo.gl/Us5DnZ
+
 # compile stuff
 compile: compile_quotes compile_assignment05
 
