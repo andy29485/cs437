@@ -63,5 +63,12 @@ Types of inputs:
 
 ### Running Tests
 ```bash
-TODO
+$ make test_assignment08
+javac -cp "tests/assignment08":"junit.jar:hamcrest-core.jar:selenium.jar:htmlunit.jar:." tests/assignment08/*.java
+java -cp "tests/assignment08":"junit.jar:hamcrest-core.jar:selenium.jar:htmlunit.jar:." WebQuoteTest
+JUnit version 4.10
+..................
+Time: 3.55
+
+OK (18 tests)
 ```

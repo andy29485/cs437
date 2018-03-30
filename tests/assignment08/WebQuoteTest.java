@@ -3,11 +3,17 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.NoSuchElementException;
 
 
 public class WebQuoteTest {
-  WebDriver driver;
+  HtmlUnitDriver driver;
+  String         AUTHOR = "offutt";
+  String         TEXT   = "complete";
+  String         BOTH   = "a";
+  String         NONE   = "jaklsdjah";
 
   public static void main(String args[]){
     org.junit.runner.JUnitCore.main("WebQuoteTest");
@@ -24,180 +30,104 @@ public class WebQuoteTest {
     WebElement temp = this.driver.findElementByName("random");
     String firstQuote = getRandomQuote();
     temp.submit();
-    assertNotEquals("random quotes are the same", firstQuote, getRandomQuote());
+
+    // Statistically unlikely for them to be the same
+    //  not the best test, but still
+    assertFalse("random quotes are the same",
+      firstQuote.equals(getRandomQuote())
+    );
   }
   @Test
   public void testSearchAuthorTT(){
-    WebElement temp = getSearchForm();
-    temp.findElementById("searchText").sendKeys("a");
-    temp.findElementById("author").click();
-    temp.submit();
-
-    assertNotEquals("search by author - author + text - not found",
-                    "did not match any quotes",
-                    getQuote()
-    );
+    search(BOTH, "author");
+    assertFalse("search by author - author + text", getQuote().isEmpty());
   }
   @Test
   public void testSearchAuthorTF(){
-    WebElement temp = getSearchForm();
-    temp.findElementById("searchText").sendKeys("offutt");
-    temp.findElementById("author").click();
-    temp.submit();
-
-    assertNotEquals("search by author - author only - not found",
-                    "did not match any quotes",
-                    getQuote()
-    );
+    search(AUTHOR, "author");
+    assertFalse("search by author - author only", getQuote().isEmpty());
   }
 
   @Test
   public void testSearchAuthorFT(){
-    WebElement temp = getSearchForm();
-    temp.findElementById("searchText").sendKeys("english");
-    temp.findElementById("author").click();
-    temp.submit();
-
-    assertEquals("search by author - text only - not found",
-                    "did not match any quotes",
-                    getQuote()
-    );
+    search(TEXT, "author");
+    assertTrue("search by author - text only", getQuote().isEmpty());
   }
 
   @Test
   public void testSearchAuthorFF(){
-    WebElement temp = getSearchForm();
-    temp.findElementById("searchText").sendKeys("jbedbwjbjb");
-    temp.findElementById("author").click();
-    temp.submit();
-
-    assertEquals("search by author - none - not found",
-                    "did not match any quotes",
-                    getQuote()
-    );
+    search(NONE, "author");
+    assertTrue("search by author - none - not found", getQuote().isEmpty());
   }
 
   @Test
   public void testSearchTextTT(){
-    WebElement temp = getSearchForm();
-    temp.findElementById("searchText").sendKeys("a");
-    temp.findElementById("quote").click();
-    temp.submit();
-
-    assertNotEquals("search by quote - author + text - not found",
-                    "did not match any quotes",
-                    getQuote()
-    );
+    search(BOTH, "quote");
+    assertFalse("search by quote - author + text", getQuote().isEmpty());
   }
+
   @Test
   public void testSearchTextTF(){
-    WebElement temp = getSearchForm();
-    temp.findElementById("searchText").sendKeys("offutt");
-    temp.findElementById("quote").click();
-    temp.submit();
-
-    assertEquals("search by quote - author only - not found",
-                    "did not match any quotes",
-                    getQuote()
-    );
+    search(AUTHOR, "quote");
+    assertTrue("search by quote - author only", getQuote().isEmpty());
   }
 
   @Test
   public void testSearchTextFT(){
-    WebElement temp = getSearchForm();
-    temp.findElementById("searchText").sendKeys("english");
-    temp.findElementById("quote").click();
-    temp.submit();
-
-    assertNotEquals("search by quote - text only - not found",
-                    "did not match any quotes",
-                    getQuote()
-    );
+    search(TEXT, "quote");
+    assertFalse("search by quote - text only", getQuote().isEmpty());
   }
 
   @Test
   public void testSearchTextFF(){
-    WebElement temp = getSearchForm();
-    temp.findElementById("searchText").sendKeys("jbedbwjbjb");
-    temp.findElementById("quote").click();
-    temp.submit();
-
-    assertEquals("search by autquotenone - not found",
-                    "did not match any quotes",
-                    getQuote()
-    );
+    search(NONE, "quote");
+    assertTrue("search by quote - none", getQuote().isEmpty());
   }
 
   @Test
   public void testSearchBothTT(){
-    WebElement temp = getSearchForm();
-    temp.findElementById("searchText").sendKeys("a");
-    temp.findElementById("both").click();
-    temp.submit();
-
-    assertNotEquals("search by quote - author + text - not found",
-                    "did not match any quotes",
-                    getQuote()
-    );
+    search(BOTH, "both");
+    assertFalse("search by both - author + text", getQuote().isEmpty());
   }
   @Test
   public void testSearchBothTF(){
-    WebElement temp = getSearchForm();
-    temp.findElementById("searchText").sendKeys("offutt");
-    temp.findElementById("both").click();
-    temp.submit();
-
-    assertNotEquals("search by quote - author only - not found",
-                    "did not match any quotes",
-                    getQuote()
-    );
+    search(AUTHOR, "both");
+    assertFalse("search by both - author only", getQuote().isEmpty());
   }
 
   @Test
   public void testSearchBothFT(){
-    WebElement temp = getSearchForm();
-    temp.findElementById("searchText").sendKeys("english");
-    temp.findElementById("both").click();
-    temp.submit();
+    search(TEXT, "both");
 
-    assertNotEquals("search by quote - text only - not found",
-                    "did not match any quotes",
-                    getQuote()
-    );
+    assertFalse("search by both - text only", getQuote().isEmpty());
   }
 
   @Test
   public void testSearchBothFF(){
-    WebElement temp = getSearchForm();
-    temp.findElementById("searchText").sendKeys("jbedbwjbjb");
-    temp.findElementById("both").click();
-    temp.submit();
+    search(NONE, "both");
 
-    assertEquals("search by autquotenone - not found",
-                    "did not match any quotes",
-                    getQuote()
-    );
+    assertTrue("search by both - none", getQuote().isEmpty());
   }
 
   @Test
   public void testResetTT(){
     WebElement temp = getResetButton();
-    temp.findElementById("searchText").sendKeys("a");
+    this.driver.findElementById("searchText").sendKeys(BOTH);
     temp.click();
 
-    assertEquals("reset did not bar not clear",
-      temp.findElementById("searchText").getText().isEmpty()
+    assertTrue("reset did not bar not clear",
+      this.driver.findElementById("searchText").getText().isEmpty()
     );
 
   }
   @Test
   public void testResetTF(){
     WebElement temp = getResetButton();
-    temp.findElementById("searchText").sendKeys("offutt");
+    this.driver.findElementById("searchText").sendKeys(AUTHOR);
     temp.click();
 
-    assertEquals("reset did not bar not clear",
-      temp.findElementById("searchText").getText().isEmpty()
+    assertTrue("reset did not bar not clear",
+      this.driver.findElementById("searchText").getText().isEmpty()
     );
 
   }
@@ -205,73 +135,75 @@ public class WebQuoteTest {
   @Test
   public void testResetFT(){
     WebElement temp = getResetButton();
-    temp.findElementById("searchText").sendKeys("english");
+    this.driver.findElementById("searchText").sendKeys("english");
     temp.click();
 
-    assertEquals("reset did not bar not clear",
-      temp.findElementById("searchText").getText().isEmpty()
+    assertTrue("reset did not bar not clear",
+      this.driver.findElementById("searchText").getText().isEmpty()
     );
 
   }
 
   @Test
-  public void testResetTF(){
+  public void testResetFF(){
     WebElement temp = getResetButton();
-    temp.findElementById("searchText").sendKeys("jsjbdiekjb");
+    this.driver.findElementById("searchText").sendKeys("jsjbdiekjb");
     temp.click();
 
-    assertEquals("reset did not bar not clear",
-      temp.findElementById("searchText").getText().isEmpty()
+    assertTrue("reset did not bar not clear",
+      this.driver.findElementById("searchText").getText().isEmpty()
     );
-
   }
 
   @Test
   public void testLinks(){
     WebElement temp = searchByLinks();
+    String search = temp.getText();
     temp.click();
     String quote= getQuote();
-    String search = temp.getText();
 
     temp = getSearchForm();
-    temp.findElementById("searchText").sendKeys(quote);
-    temp.findElementById("both").click();
+    this.driver.findElementById("searchText").sendKeys(quote);
+    this.driver.findElementById("both").click();
     temp.submit();
 
-
-    assertEquals("quotes are not the same",
-      getQuote(),quote
-    );
-
+    assertEquals("quotes are not the same", getQuote(), quote);
   }
 
-
-
-  public boolean searchByLinks(){
-    return this.driver.findElementByXPath("body.table.tbody.tr[1].td.ol.li[0]");
-
+  public void search(String text, String scope) {
+    WebElement temp = getSearchForm();
+    this.driver.findElementById("searchText").sendKeys(text);
+    this.driver.findElementById(scope).click();
+    temp.submit();
   }
 
+  public WebElement searchByLinks(){
+    String path = "/html/body/table/tbody/tr/td[3]"
+                + "/table/tbody/tr[2]/td[2]/ol/li[1]/a";
+    return this.driver.findElementByXPath(path);
+  }
 
-  public WebElement getResetButton()
-  {
+  public WebElement getResetButton() {
     return this.driver.findElementByName("reset");
   }
 
-  public String getQuote()
-  {
-    return this.driver.findElementByXPath("body.table.tbody.tr.td.dl")
-      .getText();
+  public String getQuote() {
+    String path = "/html/body/table/tbody/tr/td/dl";
+    try {
+      return this.driver.findElementByXPath(path).getText();
+    }
+    catch(Exception e) {
+      return "";
+    }
   }
-
 
   public WebElement getSearchForm(){
-    return this.driver.findElementByXPath("body.table.tbody.tr.td.form");
-  }
-  public String getRandomQuote()
-  {
-    return this.driver.findElementByXPath("body.div[0]").getText();
+    String path = "/html/body/table/tbody/tr/td[1]/form";
+    return this.driver.findElementByXPath(path);
   }
 
-
+  public String getRandomQuote(){
+    String path = "/html/body/div";
+    return this.driver.findElementByXPath(path).getText();
+  }
 }
