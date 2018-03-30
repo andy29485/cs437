@@ -1,6 +1,7 @@
 
-JARS="junit.jar:hamcrest-core.jar:."
+JARS="junit.jar:hamcrest-core.jar:selenium.jar:htmlunit.jar:."
 CP05="assignment05:tests/assignment05":$(JARS)
+CP08="tests/assignment08":$(JARS)
 CPQU="tests:.":$(JARS)
 all: compile
 
@@ -14,11 +15,17 @@ hamcrest-core.jar:
 selenium.jar:
 	wget -O selenium.jar https://goo.gl/Us5DnZ
 
+htmlunit.jar:
+	wget -O htmlunit.jar https://github.com/SeleniumHQ/htmlunit-driver/releases/download/2.30.0/htmlunit-driver-2.30.0-jar-with-dependencies.jar
+
 # compile stuff
 compile: compile_quotes compile_assignment05
 
 compile_assignment05: junit.jar hamcrest-core.jar
 	javac -cp $(CP05) assignment05/*.java tests/assignment05/*.java
+
+compile_assignment08: junit.jar hamcrest-core.jar selenium.jar htmlunit.jar
+	javac -cp $(CP08) tests/assignment08/*.java
 
 compile_quotes: junit.jar hamcrest-core.jar
 	javac -cp $(CPQU) quotes/*java tests/quotes/*.java
@@ -28,6 +35,9 @@ test: test_quotes test_assignment05
 
 test_assignment05: compile_assignment05 junit.jar hamcrest-core.jar
 	java -cp $(CP05) CalTest
+
+test_assignment08: compile_assignment08 junit.jar hamcrest-core.jar selenium.jar htmlunit.jar
+	java -cp $(CP08) WebQuoteTest
 
 test_quotes: compile_quotes junit.jar hamcrest-core.jar
 	java -cp $(CPQU) quotes.QuotesTestRunner
