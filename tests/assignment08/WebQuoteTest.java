@@ -9,11 +9,12 @@ import org.openqa.selenium.NoSuchElementException;
 
 
 public class WebQuoteTest {
+  static final String   AUTHOR = "offutt";
+  static final String   TEXT   = "complete";
+  static final String   BOTH   = "a";
+  static final String   NONE   = "jaklsdjah";
   HtmlUnitDriver driver;
-  String         AUTHOR = "offutt";
-  String         TEXT   = "complete";
-  String         BOTH   = "a";
-  String         NONE   = "jaklsdjah";
+  String         url;
 
   public static void main(String args[]){
     org.junit.runner.JUnitCore.main("WebQuoteTest");
@@ -21,22 +22,30 @@ public class WebQuoteTest {
 
   @Before
   public void setUp() {
+    this.url = "https://cs.gmu.edu:8443/offutt/servlet/quotes.quoteserve";
     this.driver = new HtmlUnitDriver();
-    this.driver.get("https://cs.gmu.edu:8443/offutt/servlet/quotes.quoteserve");
+    this.driver.get(this.url);
   }
 
   @Test
   public void testRandomQuote() {
-    WebElement temp = this.driver.findElementByName("random");
-    String firstQuote = getRandomQuote();
-    temp.submit();
+    WebElement temp = this.driver.findElementByName("random"); // find button
+    String firstQuote = getRandomQuote();                      // read quote 1
+    temp.submit();                                             // click button
 
+    // check first quote agains second quote
     // Statistically unlikely for them to be the same
     //  not the best test, but still
     assertFalse("random quotes are the same",
       firstQuote.equals(getRandomQuote())
     );
   }
+
+  // The TT refers to what parts of the quote match the search String
+  // TT - both author and quote should be matched by this string
+  // TF - only author should be matched by th search string
+  // FT - only quote part should be matched
+  // FF - this string should get no matches
   @Test
   public void testSearchAuthorTT(){
     search(BOTH, "author");
@@ -47,13 +56,11 @@ public class WebQuoteTest {
     search(AUTHOR, "author");
     assertFalse("search by author - author only", getQuote().isEmpty());
   }
-
   @Test
   public void testSearchAuthorFT(){
     search(TEXT, "author");
     assertTrue("search by author - text only", getQuote().isEmpty());
   }
-
   @Test
   public void testSearchAuthorFF(){
     search(NONE, "author");
@@ -65,19 +72,16 @@ public class WebQuoteTest {
     search(BOTH, "quote");
     assertFalse("search by quote - author + text", getQuote().isEmpty());
   }
-
   @Test
   public void testSearchTextTF(){
     search(AUTHOR, "quote");
     assertTrue("search by quote - author only", getQuote().isEmpty());
   }
-
   @Test
   public void testSearchTextFT(){
     search(TEXT, "quote");
     assertFalse("search by quote - text only", getQuote().isEmpty());
   }
-
   @Test
   public void testSearchTextFF(){
     search(NONE, "quote");
@@ -94,18 +98,14 @@ public class WebQuoteTest {
     search(AUTHOR, "both");
     assertFalse("search by both - author only", getQuote().isEmpty());
   }
-
   @Test
   public void testSearchBothFT(){
     search(TEXT, "both");
-
     assertFalse("search by both - text only", getQuote().isEmpty());
   }
-
   @Test
   public void testSearchBothFF(){
     search(NONE, "both");
-
     assertTrue("search by both - none", getQuote().isEmpty());
   }
 
@@ -118,7 +118,6 @@ public class WebQuoteTest {
     assertTrue("reset did not bar not clear",
       this.driver.findElementById("searchText").getText().isEmpty()
     );
-
   }
   @Test
   public void testResetTF(){
@@ -129,9 +128,7 @@ public class WebQuoteTest {
     assertTrue("reset did not bar not clear",
       this.driver.findElementById("searchText").getText().isEmpty()
     );
-
   }
-
   @Test
   public void testResetFT(){
     WebElement temp = getResetButton();
@@ -141,9 +138,7 @@ public class WebQuoteTest {
     assertTrue("reset did not bar not clear",
       this.driver.findElementById("searchText").getText().isEmpty()
     );
-
   }
-
   @Test
   public void testResetFF(){
     WebElement temp = getResetButton();
@@ -156,20 +151,49 @@ public class WebQuoteTest {
   }
 
   @Test
-  public void testLinks(){
-    WebElement temp = searchByLinks();
-    String search = temp.getText();
-    temp.click();
-    String quote= getQuote();
-
-    temp = getSearchForm();
-    this.driver.findElementById("searchText").sendKeys(quote);
-    this.driver.findElementById("both").click();
-    temp.submit();
-
-    assertEquals("quotes are not the same", getQuote(), quote);
+  public void testLink1() {
+    testLinks(1);
+  }
+  @Test
+  public void testLink2() {
+    testLinks(2);
+  }
+  @Test
+  public void testLink3() {
+    testLinks(3);
+  }
+  @Test
+  public void testLink4() {
+    testLinks(4);
+  }
+  @Test
+  public void testLink5() {
+    testLinks(5);
   }
 
+  // Since the text field is not an input for the link, that part is ignored
+  //  for this test - hyperlinks != forms
+  public void testLinks(int num){
+    WebElement temp   = getLink(num);               // pick a link
+    String     link   = temp.getAttribute("href");  // get url
+    String     scope  = link.split("[&=]")[3];      // get scope
+    String     search = temp.getText();             // get the search string
+    temp.click();                                   // click link
+    String quote = getQuote();                      // remember search results
+
+
+    temp = getSearchForm();
+    this.driver.findElementById("searchText").sendKeys(search);
+    this.driver.findElementById(scope).click();
+    temp.submit();
+
+    assertEquals("quotes are not the same (link: "+num+")", getQuote(), quote);
+  }
+
+  // helper function - search using search bar
+  //  1. type text into search bar
+  //  2. click radio button with id scope
+  //  3. submit form
   public void search(String text, String scope) {
     WebElement temp = getSearchForm();
     this.driver.findElementById("searchText").sendKeys(text);
@@ -177,16 +201,20 @@ public class WebQuoteTest {
     temp.submit();
   }
 
-  public WebElement searchByLinks(){
+  // return link element by number
+  public WebElement getLink(int num){
     String path = "/html/body/table/tbody/tr/td[3]"
-                + "/table/tbody/tr[2]/td[2]/ol/li[1]/a";
+                + "/table/tbody/tr[2]/td[2]/ol/li["+num+"]/a";
     return this.driver.findElementByXPath(path);
   }
 
+  // shorter way of getting the reset button
   public WebElement getResetButton() {
     return this.driver.findElementByName("reset");
   }
 
+  // helper function, return quote text from search
+  //   or empty string is quote text is missing
   public String getQuote() {
     String path = "/html/body/table/tbody/tr/td/dl";
     try {
@@ -197,11 +225,13 @@ public class WebQuoteTest {
     }
   }
 
+  // find and return search form
   public WebElement getSearchForm(){
     String path = "/html/body/table/tbody/tr/td[1]/form";
     return this.driver.findElementByXPath(path);
   }
 
+  // return random quote string
   public String getRandomQuote(){
     String path = "/html/body/div";
     return this.driver.findElementByXPath(path).getText();

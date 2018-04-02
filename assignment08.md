@@ -4,11 +4,8 @@
 - Andriy Zasypkin
 - Hamza Khanane
 
-### Type of interface
-Command Line Interface (CLI)
-
 ### Location of source files
-https://github.com/andy29485/swe437-assignments/tree/master/tests/assignment07
+https://github.com/andy29485/swe437-assignments/tree/master/tests/assignment08
 
 ### Group Work Distribution
 
@@ -67,8 +64,8 @@ $ make test_assignment08
 javac -cp "tests/assignment08":"junit.jar:hamcrest-core.jar:selenium.jar:htmlunit.jar:." tests/assignment08/*.java
 java -cp "tests/assignment08":"junit.jar:hamcrest-core.jar:selenium.jar:htmlunit.jar:." WebQuoteTest
 JUnit version 4.10
-..................
-Time: 3.55
+......................
+Time: 3.965
 
-OK (18 tests)
+OK (22 tests)
 ```
