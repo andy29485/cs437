@@ -1,7 +1,7 @@
 
 JARS="junit.jar:hamcrest-core.jar:selenium.jar:htmlunit.jar:."
 CP05="assignment05:tests/assignment05":$(JARS)
-CP05="assignment05:tests/assignment11":$(JARS)
+CP11="assignment05:tests/assignment11":$(JARS)
 CP08="tests/assignment08":$(JARS)
 CPQU="tests:.":$(JARS)
 all: compile
@@ -44,7 +44,7 @@ test_assignment08: compile_assignment08 junit.jar hamcrest-core.jar selenium.jar
 	java -cp $(CP08) WebQuoteTest
 
 test_assignment11: compile_assignment05 junit.jar hamcrest-core.jar
-	java -cp $(CP11) CalTest
+	java -cp $(CP11) CalTest11
 
 test_quotes: compile_quotes junit.jar hamcrest-core.jar
 	java -cp $(CPQU) quotes.QuotesTestRunner
