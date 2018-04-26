@@ -33,7 +33,7 @@ https://github.com/andy29485/swe437-assignments/
     |  # | `month2 == month1` |
     | -- | ------------------ |
     |  1 |          T*        |
-    |  2 |           *        |
+    |  2 |          F*        |
 
 
    - `(m4 != 0) || ((m100 == 0) && (m400 != 0))`
@@ -46,15 +46,15 @@ https://github.com/andy29485/swe437-assignments/
       - C: (5, 6)
 
     | # | `A` | `B` | `C` | `B && C` | `P` |
-    | - | --- | --- | --- | -------- | --- |
+    |---| --- | --- | --- | -------- | --- |
     | 1 |  T  |  T  |  T  |     T    |  T  |
-    | 2 |  T* |  T  |     |          |  T  |
-    | 3 |  T* |     |  T  |          |  T  |
-    | 4 |  T* |     |     |          |  T  |
-    | 5 |     |  T* |  T* |     T    |  T  |
-    | 6 |   * |  T  |   * |          |     |
-    | 7 |   * |   * |  T  |          |     |
-    | 8 |   * |   * |   * |          |     |    
+    | 2 |  T* |  T  |  F  |     F    |  T  |
+    | 3 |  T* |  F  |  T  |     F    |  T  |
+    | 4 |  T* |  F  |  F  |     F    |  T  |
+    | 5 |  F  |  T* |  T* |     T    |  T  |
+    | 6 |  F* |  T  |  F* |     F    |  F  |
+    | 7 |  F* |  F* |  T  |     F    |  F  |
+    | 8 |  F* |  F* |  F* |     F    |  F  |    
 
 
 3. For each abstract test, create input values that satisfy the truth
