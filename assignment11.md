@@ -27,43 +27,43 @@ https://github.com/andy29485/swe437-assignments/
    tables that satisfy CACC. You must submit the truth tables and clearly
    mark which rows will be used. These are your abstract tests.
    - `month2 == month1`
-   - Test cases used:
-      -  (1, 2)
+     - Test cases used:
+         -  (1, 2)
 
-      | # | `month2 == month1` |
-      | - | :----------------: |
-      | 1 |          T*        |
-      | 2 |          F*        |
+        | # | `month2 == month1` |
+        |---| :----------------: |
+        | 1 |          T*        |
+        | 2 |          F*        |
 
 
    - `(m4 != 0) || ((m100 == 0) && (m400 != 0))`
-   - A = `(m4 != 0)`
-   - B = `(m100 == 0)`
-   - C = `(m400 != 0)`
-   - Test cases used:
-      - A: (3, 7)
-      - B: (5, 7)
-      - C: (5, 6)
+     - A = `(m4 != 0)`
+     - B = `(m100 == 0)`
+     - C = `(m400 != 0)`
+     - Test cases used:
+         - A: (3, 7)
+         - B: (5, 7)
+         - C: (5, 6)
 
-      | # | `A` | `B` | `C` | `B && C` | `P` |
-      |:-:| :-: | :-: | :-: | :------: | :-: |
-      | 1 |  T  |  T  |  T  |     T    |  T  |
-      | 2 |  T* |  T  |  F  |     F    |  T  |
-      | 3 |  T* |  F  |  T  |     F    |  T  |
-      | 4 |  T* |  F  |  F  |     F    |  T  |
-      | 5 |  F  |  T* |  T* |     T    |  T  |
-      | 6 |  F* |  T  |  F* |     F    |  F  |
-      | 7 |  F* |  F* |  T  |     F    |  F  |
-      | 8 |  F* |  F* |  F* |     F    |  F  |   
+        | # | `A` | `B` | `C` | `B && C` | `P` |
+        |---| --- | --- | --- | :------: | --- |
+        | 1 |  T  |  T  |  T  |     T    |  T  |
+        | 2 |  T* |  T  |  F  |     F    |  T  |
+        | 3 |  T* |  F  |  T  |     F    |  T  |
+        | 4 |  T* |  F  |  F  |     F    |  T  |
+        | 5 |  F  |  T* |  T* |     T    |  T  |
+        | 6 |  F* |  T  |  F* |     F    |  F  |
+        | 7 |  F* |  F* |  T  |     F    |  F  |
+        | 8 |  F* |  F* |  F* |     F    |  F  |   
 
    - `month2 == month1`
-   - Test cases used:
-      -  (1, 2)
+     - Test cases used:
+         -  (1, 2)
 
-      | # | `i <= month2-1` |
-      | - | :-------------: |
-      | 1 |        T*       |
-      | 2 |        F*       |
+        | # | `i <= month2-1` |
+        |---| :-------------: |
+        | 1 |        T*       |
+        | 2 |        F*       |
 
 
 3. For each abstract test, create input values that satisfy the truth
