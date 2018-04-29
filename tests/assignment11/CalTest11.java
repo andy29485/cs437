@@ -56,4 +56,20 @@ public class CalTest11 {
     assertEquals("Leap year (normal)", days_diff, 29);
   }
 
+  // Predicate: i <= month2-1
+  // row:       1
+  @Test
+  public void testWithInterveningMonths() {
+    int days_diff = Cal.cal(1, 8, 8, 8, 2004);
+    assertEquals("With Intervening Months", days_diff, 213);
+  }
+
+  // Predicate: i <= month2-1
+  // row:       2
+  @Test
+  public void testWithoutInterveningMonths() {
+    int days_diff = Cal.cal(1, 8, 2, 8, 2004);
+    assertEquals("Without Intervening Months", days_diff, 31);
+  }
+
 }

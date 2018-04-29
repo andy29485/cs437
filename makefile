@@ -43,7 +43,7 @@ test_assignment05: compile_assignment05 junit.jar hamcrest-core.jar
 test_assignment08: compile_assignment08 junit.jar hamcrest-core.jar selenium.jar htmlunit.jar
 	java -cp $(CP08) WebQuoteTest
 
-test_assignment11: compile_assignment05 junit.jar hamcrest-core.jar
+test_assignment11: compile_assignment11 junit.jar hamcrest-core.jar
 	java -cp $(CP11) CalTest11
 
 test_quotes: compile_quotes junit.jar hamcrest-core.jar
